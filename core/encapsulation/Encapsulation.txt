@@ -1,0 +1,429 @@
+# Encapsulation in Java
+
+## Definition
+
+Encapsulation is the process of wrapping data and methods into a single unit and restricting direct access to data using access modifiers.
+
+## Main Purpose
+
+* Data hiding
+* Security
+* Controlled access
+* Validation
+* Better maintainability
+
+---
+
+# Real Meaning of Encapsulation
+
+Encapsulation does NOT mean data cannot be accessed.
+
+It means:
+
+* direct access is restricted
+* controlled access is allowed through methods
+
+---
+
+# Basic Syntax
+
+```java
+class Student {
+
+    private int age;
+
+    public void setAge(int age){
+        this.age = age;
+    }
+
+    public int getAge(){
+        return age;
+    }
+}
+```
+
+---
+
+# Important Keywords
+
+## private
+
+* accessible only inside same class
+* prevents direct outside access
+
+Example:
+
+```java
+private int age;
+```
+
+---
+
+## public
+
+* accessible from anywhere
+* used for controlled access methods
+
+Example:
+
+```java
+public void setAge(int age)
+```
+
+---
+
+# Getter and Setter
+
+## Getter
+
+Used to return value.
+
+```java
+public int getAge(){
+    return age;
+}
+```
+
+## Setter
+
+Used to modify value.
+
+```java
+public void setAge(int age){
+    this.age = age;
+}
+```
+
+---
+
+# this Keyword
+
+## Definition
+
+`this` refers to current object.
+
+Used mainly when:
+
+* local variable and instance variable have same name
+
+Example:
+
+```java
+this.age = age;
+```
+
+Left side:
+
+* instance variable
+
+Right side:
+
+* local parameter
+
+---
+
+# Instance Variable vs Local Variable
+
+```java
+class Student {
+
+    int age;
+
+    void setAge(int age){
+        this.age = age;
+    }
+}
+```
+
+## Instance Variable
+
+```java
+int age;
+```
+
+* belongs to object
+* stored in heap memory
+
+## Local Variable / Parameter
+
+```java
+int age
+```
+
+inside method:
+
+```java
+setAge(int age)
+```
+
+* temporary
+* stored in stack memory
+
+---
+
+# Without this Keyword
+
+```java
+age = age;
+```
+
+Means:
+
+```text
+local age = local age
+```
+
+Object variable will not change.
+
+---
+
+# Encapsulation Example 1 — Student
+
+```java
+class Student {
+
+    private int age;
+
+    public void setAge(int age){
+        this.age = age;
+    }
+
+    public int getAge(){
+        return age;
+    }
+}
+```
+
+This is traditional encapsulation using getter and setter.
+
+---
+
+# Encapsulation Example 2 — Bank
+
+```java
+class Bank {
+
+    private double balance;
+
+    public void deposit(int amount){
+        balance += amount;
+    }
+
+    public void withdraw(int amount){
+
+        if(amount <= balance){
+            balance -= amount;
+        }
+    }
+
+    public double getBalance(){
+        return balance;
+    }
+}
+```
+
+## Important Point
+
+* deposit() and withdraw() act as controlled setters
+* better real-world design than direct setBalance()
+
+---
+
+# Encapsulation Example 3 — Medical Store
+
+```java
+class MedicalStore {
+
+    private String medicine = "Paracetamol";
+
+    public void giveMedicine(String prescription){
+
+        if(prescription.equals("Fever")){
+            System.out.println(medicine);
+        }
+    }
+}
+```
+
+## Real-Life Analogy
+
+* medicine is hidden
+* chemist controls access
+* customer cannot directly access medicine
+
+---
+
+# Important Understanding
+
+## This is NOT allowed
+
+```java
+obj.balance
+```
+
+if variable is private.
+
+## This IS allowed
+
+```java
+obj.getBalance()
+```
+
+because access happens through public method.
+
+---
+
+# Encapsulation Without private
+
+Possible but not secure.
+
+Example:
+
+```java
+class Test {
+
+    int x;
+
+    void show(){
+        System.out.println(x);
+    }
+}
+```
+
+Data + methods are wrapped together, so technically encapsulation exists.
+
+But:
+
+```java
+obj.x = 100;
+```
+
+Direct access possible.
+
+No proper data hiding.
+
+---
+
+# Difference Between Encapsulation and Data Hiding
+
+| Encapsulation           | Data Hiding               |
+| ----------------------- | ------------------------- |
+| Wrapping data + methods | Restricting direct access |
+| Achieved using class    | Achieved using private    |
+
+Data hiding is part of encapsulation.
+
+---
+
+# Advantages of Encapsulation
+
+* Improves security
+* Prevents unauthorized access
+* Allows validation
+* Better maintainability
+* Better code organization
+* Real-world modeling
+
+---
+
+# Important Interview Questions
+
+## What is encapsulation?
+
+Encapsulation is wrapping data and methods into a single unit and restricting direct access to data.
+
+## How is encapsulation achieved?
+
+Using:
+
+* class
+* private variables
+* public methods
+
+## Why use private?
+
+To prevent direct unauthorized access.
+
+## Why getters and setters?
+
+To provide controlled access and validation.
+
+## Can encapsulation exist without private?
+
+Yes, but proper data hiding will not exist.
+
+## Can private members be accessed inside same class?
+
+Yes.
+
+## Can private members be accessed outside class?
+
+No.
+
+---
+
+# Final One-Line Summary
+
+Encapsulation = Hide data + provide controlled access through methods.
+
+// Encapsulation: 
+class Bank{
+    private double balance;
+    public void deposit(int amount){
+        balance += amount;
+        System.out.println("Deposited " + amount);
+    }
+    public void withdraw(int amount){
+        if(amount <= balance){
+            balance -= amount;
+        }
+        System.out.println("Amount withdrawn "+"Remaining Balance: " + balance);
+    }
+    public double getBalance(){
+        return balance;
+    }
+}
+class Student{
+    private int age;
+    public void setAge(int a){
+          System.out.println("Age before " + age);
+           System.out.println("param " + a);
+        age = a;
+         System.out.println("Age after " + age);
+    }
+    public int getAge(){
+        return age;
+    }
+}
+class MedicalStore {
+    private String medicine="paracetmol";
+    public void giveMedicine(String prescription){
+        if(prescription.equals("Fever")){
+            System.out.println("Give Medicine " + medicine);
+        }else{
+            System.out.println("Not allowed");
+        }
+    }
+}
+class Test{
+    int x;
+    void show(){
+        System.out.println(x);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Bank b1 = new Bank();
+        b1.deposit(1000);
+        b1.withdraw(500);
+        System.out.println(b1.getBalance());
+        Student s1 =new Student();
+        s1.setAge(18);
+        System.out.println(s1.getAge());
+        MedicalStore m = new MedicalStore();
+        m.giveMedicine("Fever");
+        Test t = new Test();
+        t.x=34;
+        t.show();
+    }
+}
